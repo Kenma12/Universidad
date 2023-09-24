@@ -19,4 +19,8 @@ public class InscripcionServices {
         inscriptos.addAll(data.listarInscriptos());
     }
     
+    public void listarInscripcionesXAlum(ArrayList<Inscripcion> inscriptos){
+        inscriptos.addAll(data.listarInscriptosPorAlumno(0));
+    }
+    
 }

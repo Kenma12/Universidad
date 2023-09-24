@@ -23,6 +23,8 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     ArrayList<Alumno> alumnos= new ArrayList();
     private InscripcionServices inscS = new InscripcionServices();
     private MateriaServices matS = new MateriaServices();
+    ArrayList<Materia> materiasNoInc = new ArrayList<>();
+    
     /**
      * Creates new form viewIncripcion
      */
@@ -30,10 +32,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         initComponents();
         cargarBox();
         armarTabla();
-        
     }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -201,7 +200,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
 
     private void jRadioNoInscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioNoInscActionPerformed
         jRadioInsc.setSelected(false);
-        cargarTablaNoInsc();
+        cargarTabla();
         
     }//GEN-LAST:event_jRadioNoInscActionPerformed
 
@@ -227,44 +226,16 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     }
     
     private void cargarTablaInsc(){
-        modelo.setRowCount(0);
-        int i = jComboAlumnos.getSelectedIndex();
-        ArrayList<Inscripcion> inscripciones = new ArrayList();
-        ArrayList<Materia> materias = new ArrayList<>();
-        matS.listarMaterias(materias);
-        inscS.listarInscripciones(inscripciones);
         
-        for(Inscripcion ic : inscripciones){
-            for(int j=0;j<materias.size();j++){
-                if (jRadioInsc.isSelected() && ic.getAlumno().getIdAlumno() == alumnos.get(i).getIdAlumno()
-                        && ic.getMateria().getIdMateria() == materias.get(j).getIdMateria()){
-                           
-                        modelo.addRow(new Object[]{materias.get(j).getIdMateria(),
-                        materias.get(j).getNombre(), materias.get(j).getAnioMateria()});
-                }
-            }
-        }
     }
     
-    private void cargarTablaNoInsc(){
-        modelo.setRowCount(0);
-        int i = jComboAlumnos.getSelectedIndex();
-        ArrayList<Inscripcion> inscripciones = new ArrayList();
-        ArrayList<Materia> materias = new ArrayList<>();
-        matS.listarMaterias(materias);
-        inscS.listarInscripciones(inscripciones);
-        
-        for(Inscripcion ic : inscripciones){
-            for(int j=0;j<materias.size();j++){
-                if (jRadioNoInsc.isSelected() && ic.getAlumno().getIdAlumno() != alumnos.get(i).getIdAlumno()
-                        && ic.getMateria().getIdMateria() != materias.get(j).getIdMateria()){
-                           
-                        modelo.addRow(new Object[]{materias.get(j).getIdMateria(),
-                        materias.get(j).getNombre(), materias.get(j).getAnioMateria()});
-                }
-            }
-        }
+    private void cargarTabla(){
+     
     }
+    
+    
+        
+    
     
     
     

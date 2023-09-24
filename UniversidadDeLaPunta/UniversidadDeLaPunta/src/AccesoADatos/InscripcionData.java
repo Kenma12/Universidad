@@ -13,6 +13,8 @@ import org.mariadb.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -50,5 +52,30 @@ public class InscripcionData {
         return inscs;
     }
     
-  
+    public List<Inscripcion> listarInscriptosPorAlumno(int idAlumno){
+            ArrayList<Inscripcion> cursadas = new ArrayList<>();
+            String sql = "SELECT `idInscripto`, `nota`, `idAlumno`, `idMateria` FROM `inscripcion`"
+                    + " WHERE idAlumno = ?";
+            
+        try { 
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Inscripcion insc = new Inscripcion();
+                insc.setIdIncripcion(rs.getInt("idInscripto"));
+                Alumno alum = ad.buscarAlumnoPorId(rs.getInt("idAlumno"));
+                Materia mat = md.buscarMateriaPorId(rs.getInt("idMateria"));
+                insc.setAlumno(alum);
+                insc.setMateria(mat);
+                insc.setNota(rs.getInt("nota"));
+                cursadas.add(insc);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return cursadas;
+    }
+    
 }
