@@ -132,9 +132,10 @@ public class viewRegistroMateria extends javax.swing.JInternalFrame {
         int fila = tblMaterias.getSelectedRow();
         int id;
         if(fila != -1){
-            modeloTabla.removeRow(fila);
-            id = (int) tblMaterias.getValueAt(fila, 3);
+            id = (int) tblMaterias.getValueAt(fila, 0);
+            System.out.println("id =" + id);
             matS.eliminarMateria(id);
+            modeloTabla.removeRow(fila);
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno.");
         }

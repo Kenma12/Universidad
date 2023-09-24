@@ -54,13 +54,29 @@ public class AlumnoData {
         }
     }
     public Alumno buscarAlumnoPorId(int id){
-        
-        
-            
-            
-        
-        
-        return new Alumno();
+        String sql = "SELECT `idAlumno`, `dni`, `apellido`, `nombre`, `fechadNacimiento`, `estado`"
+                + " FROM `alumno` WHERE idAlumno = ?" ;
+        Alumno alumno = null;
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                alumno = new Alumno();
+                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setApellido(rs.getString("apellido"));
+                alumno.setDni(id);
+                alumno.setFechadNacimiento(rs.getDate("fechadNacimiento").toLocalDate());
+                alumno.setActivo(rs.getBoolean("estado"));
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe el alumno buscado");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return alumno;
     }
     
     
@@ -120,7 +136,7 @@ public class AlumnoData {
     }
     
     public void eliminarAlumno(int id){
-        String sql = "DELETE FROM `alumno` WHERE id = ?";
+        String sql = "DELETE FROM `alumno` WHERE idAlumno = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);

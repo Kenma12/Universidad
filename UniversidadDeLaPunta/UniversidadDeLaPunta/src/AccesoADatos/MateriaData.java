@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Connection;
 
@@ -73,7 +75,7 @@ public class MateriaData {
     }
 
     public void eliminarMateria(int id) {
-        String sql = "DELETE FROM `materia` WHERE id = ?";
+        String sql = "DELETE FROM `materia` WHERE idMateria = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
@@ -81,9 +83,37 @@ public class MateriaData {
             if(ex == 1){
                 JOptionPane.showMessageDialog(null, "Materia eliminada.");
             }
-        } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }catch (SQLException ex) {
+            System.out.println("boluido");
+            System.out.println(id);
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
+    }
+
+    public Materia buscarMateriaPorId(int id) {
+        
+        String sql = "SELECT `idMateria`, `nombre`, `anio`, `estado` FROM `materia` WHERE idMateria = ?";
+        
+        Materia materia = null;
+        
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                materia = new Materia();
+                materia.setIdMateria(id);
+                materia.setAnioMateria(rs.getInt("anio"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setActivo(rs.getBoolean("estado"));
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe Materia buscada.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return materia;
     }
     
 }

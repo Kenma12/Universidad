@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Enzo-PC/Documents/NetBeansProjects/UniversidadDeLaPunta/UniversidadDeLaPunta/src/AccesoADatos/AlumnoData.java</file>
-            <file>file:/C:/Users/Enzo-PC/Documents/NetBeansProjects/UniversidadDeLaPunta/UniversidadDeLaPunta/src/vistas/viewBuscarXDni.java</file>
-            <file>file:/C:/Users/Enzo-PC/Documents/NetBeansProjects/UniversidadDeLaPunta/UniversidadDeLaPunta/src/universidaddelapunta/UniversidadDeLaPunta.java</file>
-            <file>file:/C:/Users/Enzo-PC/Documents/NetBeansProjects/UniversidadDeLaPunta/UniversidadDeLaPunta/src/vistas/viewListaAlumno.java</file>
-            <file>file:/C:/Users/Enzo-PC/Documents/NetBeansProjects/UniversidadDeLaPunta/UniversidadDeLaPunta/src/entidades/AlumnoServices.java</file>
+            <file>file:/C:/Users/Enzo-PC/Documents/GitHub/Universidad/UniversidadDeLaPunta/UniversidadDeLaPunta/src/entidades/MateriaServices.java</file>
+            <file>file:/C:/Users/Enzo-PC/Documents/GitHub/Universidad/UniversidadDeLaPunta/UniversidadDeLaPunta/src/AccesoADatos/MateriaData.java</file>
+            <file>file:/C:/Users/Enzo-PC/Documents/GitHub/Universidad/UniversidadDeLaPunta/UniversidadDeLaPunta/src/vistas/viewRegistroMateria.java</file>
+            <file>file:/C:/Users/Enzo-PC/Documents/GitHub/Universidad/UniversidadDeLaPunta/UniversidadDeLaPunta/src/vistas/viewListaAlumno.java</file>
+            <file>file:/C:/Users/Enzo-PC/Documents/GitHub/Universidad/UniversidadDeLaPunta/UniversidadDeLaPunta/src/entidades/AlumnoServices.java</file>
+            <file>file:/C:/Users/Enzo-PC/Documents/GitHub/Universidad/UniversidadDeLaPunta/UniversidadDeLaPunta/src/AccesoADatos/AlumnoData.java</file>
+            <file>file:/C:/Users/Enzo-PC/Documents/GitHub/Universidad/UniversidadDeLaPunta/UniversidadDeLaPunta/src/vistas/viewListaAlumXMateria.java</file>
         </group>
     </open-files>
 </project-private>

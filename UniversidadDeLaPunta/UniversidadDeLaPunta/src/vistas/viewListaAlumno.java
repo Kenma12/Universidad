@@ -139,9 +139,9 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
         int fila = tblAlumnos.getSelectedRow();
         int id;
         if(fila != -1){
-            modeloTabla.removeRow(fila);
-            id = (int) tblAlumnos.getValueAt(fila, 3);
+            id = (int) tblAlumnos.getValueAt(fila, 0);
             aS.eliminarAlumno(id);
+            modeloTabla.removeRow(fila);
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno.");
         }
