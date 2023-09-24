@@ -6,6 +6,7 @@ package vistas;
 
 import entidades.Alumno;
 import entidades.AlumnoServices;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +39,7 @@ public class viewBuscarXDni extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtBusqueda = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtArea = new javax.swing.JTextArea();
+        txtSalida = new javax.swing.JTextArea();
         btnBuscar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
 
@@ -53,9 +54,10 @@ public class viewBuscarXDni extends javax.swing.JInternalFrame {
 
         txtBusqueda.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        txtArea.setColumns(20);
-        txtArea.setRows(5);
-        jScrollPane1.setViewportView(txtArea);
+        txtSalida.setColumns(20);
+        txtSalida.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtSalida.setRows(5);
+        jScrollPane1.setViewportView(txtSalida);
 
         btnBuscar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -91,8 +93,8 @@ public class viewBuscarXDni extends javax.swing.JInternalFrame {
                             .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                             .addComponent(txtBusqueda))
                         .addGap(58, 58, 58)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,9 +135,16 @@ public class viewBuscarXDni extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        int dni = Integer.parseInt(txtBusqueda.getText());
-        //Alumno alum = alumS.buscarAlumno(dni);
-        //System.out.println(alum.toString());
+        txtSalida.setText("");
+        try{
+            int dni = Integer.parseInt(txtBusqueda.getText());
+            Alumno alum = alumS.buscarAlumno(dni);
+            if(alum != null){
+                txtSalida.setText(alum.toString());
+            }
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -152,7 +161,7 @@ public class viewBuscarXDni extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea txtArea;
     private javax.swing.JTextField txtBusqueda;
+    private javax.swing.JTextArea txtSalida;
     // End of variables declaration//GEN-END:variables
 }

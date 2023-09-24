@@ -18,7 +18,6 @@ public class Alumno {
     private String nombre;
     private LocalDate fechadNac;
     private boolean activo;
-    private ArrayList<Alumno> alumnos;
     //constructor vacio
     
     public Alumno(){}
@@ -42,7 +41,6 @@ public class Alumno {
         this.nombre = nombre;
         this.fechadNac = fechadNacimiento;
         this.activo = activo;
-        this.alumnos = new ArrayList();
     }
 
     public int getIdAlumno() {
@@ -91,10 +89,6 @@ public class Alumno {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
-    }
-
-    public void añadirALista(Alumno alumno){
-        alumnos.add(alumno);
     }
     
     @Override

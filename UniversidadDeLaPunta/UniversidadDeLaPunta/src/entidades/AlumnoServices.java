@@ -20,7 +20,6 @@ public class AlumnoServices {
     public void CrearAlumno(String nombre, String apellido, int dni, LocalDate fechadNacimiento, boolean estado){
         Alumno alumno = new Alumno(dni, apellido, nombre, fechadNacimiento, estado);
         data.añadirAlumno(alumno);
-        alumno.añadirALista(alumno);
     }
     
     public void listarAlumnos(ArrayList<Alumno> alumnos){
@@ -29,10 +28,10 @@ public class AlumnoServices {
     
     //No funciona
     
-//    public Alumno buscarAlumno(int dni){
-//        Alumno alum = data.buscarAlumno(dni);
-//        return alum;
-//    }
+    public Alumno buscarAlumno(int dni){
+        Alumno alum = data.buscarAlumnoPorDni(dni);
+        return alum;
+    }
     
     public void eliminarAlumno(int id){
         data.eliminarAlumno(id);

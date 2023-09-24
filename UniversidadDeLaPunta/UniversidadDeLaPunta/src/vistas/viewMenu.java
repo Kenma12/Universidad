@@ -34,7 +34,6 @@ public class viewMenu extends javax.swing.JFrame {
         jMenuAltaDeAlumnos = new javax.swing.JMenuItem();
         jMenuListaDeAlumnos = new javax.swing.JMenuItem();
         jMenubuscarAlumnos = new javax.swing.JMenuItem();
-        jMenuborrarAlumnos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuAñadirMateria = new javax.swing.JMenuItem();
         jMenuRegistroMateria = new javax.swing.JMenuItem();
@@ -104,9 +103,6 @@ public class viewMenu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenubuscarAlumnos);
-
-        jMenuborrarAlumnos.setText("Borrar Alumnos");
-        jMenu1.add(jMenuborrarAlumnos);
 
         jMenuBarMenu.add(jMenu1);
 
@@ -233,13 +229,12 @@ public class viewMenu extends javax.swing.JFrame {
         viewListaAlumno listaAlumno = new viewListaAlumno();
         escritorio.add(listaAlumno);
         listaAlumno.setVisible(true);
-        
     }//GEN-LAST:event_jMenuListaDeAlumnosActionPerformed
 
     private void jMenuAñadirMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAñadirMateriaActionPerformed
         viewMateria vM= new viewMateria();
+        escritorio.add(vM);
         vM.setVisible(true);
-        vM.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuAñadirMateriaActionPerformed
 
     private void jMenuRegistroMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRegistroMateriaActionPerformed
@@ -266,7 +261,6 @@ public class viewMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuManipulacionNotas;
     private javax.swing.JMenuItem jMenuRegistroMateria;
     private javax.swing.JMenu jMenuSalir;
-    private javax.swing.JMenuItem jMenuborrarAlumnos;
     private javax.swing.JMenuItem jMenubuscarAlumnos;
     private javax.swing.JLabel txtImgUni;
     // End of variables declaration//GEN-END:variables

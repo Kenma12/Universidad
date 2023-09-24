@@ -7,6 +7,7 @@ package vistas;
 import entidades.Alumno;
 import entidades.AlumnoServices;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,7 +44,6 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlumnos = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
-        btnMoficar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnRegreso = new javax.swing.JButton();
 
@@ -67,14 +67,6 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblAlumnos);
 
-        btnMoficar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btnMoficar.setText("MODIFICAR");
-        btnMoficar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoficarActionPerformed(evt);
-            }
-        });
-
         btnEliminar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -96,9 +88,7 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(btnMoficar, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(50, 807, Short.MAX_VALUE)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -122,9 +112,7 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMoficar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -147,12 +135,16 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnRegresoActionPerformed
 
-    private void btnMoficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoficarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMoficarActionPerformed
-
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+        int fila = tblAlumnos.getSelectedRow();
+        int id;
+        if(fila != -1){
+            modeloTabla.removeRow(fila);
+            id = (int) tblAlumnos.getValueAt(fila, 3);
+            aS.eliminarAlumno(id);
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno.");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     public void cargarAlumnosLista(){
@@ -181,7 +173,6 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnMoficar;
     private javax.swing.JButton btnRegreso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

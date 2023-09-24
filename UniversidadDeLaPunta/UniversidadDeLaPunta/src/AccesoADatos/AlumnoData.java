@@ -89,7 +89,6 @@ public class AlumnoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
-        System.out.println(alumno.getApellido());
         return alumno;
     }
     
@@ -121,7 +120,7 @@ public class AlumnoData {
     }
     
     public void eliminarAlumno(int id){
-        String sql = "DELETE FROM `alumno` WHERE dni = ?";
+        String sql = "DELETE FROM `alumno` WHERE id = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
