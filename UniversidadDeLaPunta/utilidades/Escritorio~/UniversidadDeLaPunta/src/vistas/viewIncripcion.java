@@ -202,15 +202,8 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     private void jRadioNoInscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioNoInscActionPerformed
         
         jRadioInsc.setSelected(false);
-        //prueba si borra filas 
-       borrarfilas();
        InscripcionData insc = new InscripcionData();
-       Alumno alum= (Alumno) jComboAlumnos.getSelectedItem();
-       insc.Materianocursada(alum.getIdAlumno());
-       for (Materia a:insc.Materianocursada(alum.getIdAlumno()) ){
-           modelo.addRow(new Object []{a.getIdMateria(),a.getNombre(),a.getAnioMateria(),a.isActivo() });
-       }
-           tblMaterias.setModel(modelo);
+       insc.Materianocursada(WIDTH)
        
         
         
@@ -226,17 +219,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
 
     private void jRadioInscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioInscActionPerformed
         jRadioNoInsc.setSelected(false);
-        //prueba si borra las filas 
-        borrarfilas();
-        //estoy trabajando aca hay que corregir la impresion de los datos en la tabla y combo 
-        InscripcionData insc = new InscripcionData();
-       Alumno alum= (Alumno) jComboAlumnos.getSelectedItem();
-       insc.listarInscriptosPorAlumno(alum.getIdAlumno());
-
-       for (Inscripcion a:insc.listarInscriptosPorAlumno(alum.getIdAlumno())){
-           modelo.addRow(new Object []{a.getIdIncripcion(),a.getNota(),a.getAlumno(),a.getMateria() });
-       }
-           tblMaterias.setModel(modelo);
+        cargarTablaInsc();
         
     }//GEN-LAST:event_jRadioInscActionPerformed
     
@@ -263,12 +246,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         }
     
      
-    private void borrarfilas(){
-        int filas=tblMaterias.getRowCount()-1;
-        for(int f=filas; f>=0;f--){
-           modelo.removeRow(f);
-        };
-    }
+    
     
     
         

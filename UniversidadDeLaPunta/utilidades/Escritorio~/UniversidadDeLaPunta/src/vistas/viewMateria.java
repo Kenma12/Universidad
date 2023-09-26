@@ -165,7 +165,7 @@ public class viewMateria extends javax.swing.JInternalFrame {
         String nombre = txtNombre.getText();
         int anio = jBoxAnio.getSelectedIndex();
         System.out.println(anio);
-        mateS.CrearMateria(nombre,anio+1 , true);
+        mateS.CrearMateria(nombre,anio+1 , true);//
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -173,8 +173,7 @@ public class viewMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void jBoxAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBoxAnioActionPerformed
-              
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_jBoxAnioActionPerformed
 
     /**
