@@ -55,7 +55,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         jRadioNoInsc = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMaterias = new javax.swing.JTable();
-        jBincribcion = new javax.swing.JButton();
+        btnIncripcion = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
 
@@ -102,16 +102,21 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tblMaterias);
 
-        jBincribcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jBincribcion.setText("Inscribir");
-        jBincribcion.addActionListener(new java.awt.event.ActionListener() {
+        btnIncripcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnIncripcion.setText("Inscribir");
+        btnIncripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBincribcionActionPerformed(evt);
+                btnIncripcionActionPerformed(evt);
             }
         });
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setText("Anular Inscripcion");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo cerrar.png"))); // NOI18N
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +135,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
                 .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBincribcion, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnIncripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68))
@@ -187,7 +192,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBincribcion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnIncripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66))
         );
 
@@ -227,7 +232,9 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void jComboAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboAlumnosActionPerformed
-        
+        jRadioInsc.setSelected(false);
+        jRadioNoInsc.setSelected(false);
+        modelo.setRowCount(0);
     }//GEN-LAST:event_jComboAlumnosActionPerformed
 
     private void jRadioInscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioInscActionPerformed
@@ -247,7 +254,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jRadioInscActionPerformed
 
-    private void jBincribcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBincribcionActionPerformed
+    private void btnIncripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncripcionActionPerformed
         // trabajando aca 13:30 
        /* int insalum = (Integer) alum.getIdAlumno();
         //necesito meter lo que tengo selecionado a un objeto 
@@ -268,7 +275,11 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno.");
         }*/
-    }//GEN-LAST:event_jBincribcionActionPerformed
+    }//GEN-LAST:event_btnIncripcionActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     private void cargarBox(){
         alumS.listarAlumnos(alumnos);
@@ -319,7 +330,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton jBincribcion;
+    private javax.swing.JButton btnIncripcion;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<Alumno> jComboAlumnos;
     private javax.swing.JLabel jLabel1;
