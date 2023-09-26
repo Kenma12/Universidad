@@ -33,6 +33,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         initComponents();
         cargarBox();
         armarTabla();
+        int insalum;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +55,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         jRadioNoInsc = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMaterias = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jBincribcion = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
 
@@ -101,8 +102,13 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tblMaterias);
 
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton1.setText("Inscribir");
+        jBincribcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jBincribcion.setText("Inscribir");
+        jBincribcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBincribcionActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setText("Anular Inscripcion");
@@ -124,7 +130,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
                 .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBincribcion, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68))
@@ -181,7 +187,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBincribcion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66))
         );
 
@@ -232,6 +238,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         InscripcionData insc = new InscripcionData();
        Alumno alum= (Alumno) jComboAlumnos.getSelectedItem();
        insc.listarInscriptosPorAlumno(alum.getIdAlumno());
+       //int insalum = (Integer) alum.getIdAlumno();
 
        for (Inscripcion a:insc.listarInscriptosPorAlumno(alum.getIdAlumno())){
            modelo.addRow(new Object []{a.getIdIncripcion(),a.getNota(),a.getAlumno(),a.getMateria() });
@@ -239,6 +246,29 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
            tblMaterias.setModel(modelo);
         
     }//GEN-LAST:event_jRadioInscActionPerformed
+
+    private void jBincribcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBincribcionActionPerformed
+        // trabajando aca 13:30 
+       /* int insalum = (Integer) alum.getIdAlumno();
+        //necesito meter lo que tengo selecionado a un objeto 
+        int codidmateria = (Integer) tblMaterias.getValueAt(tblMaterias.getSelectedRow(), 0);
+        int codnota = (Integer) tblMaterias.getValueAt(tblMaterias.getSelectedRow(), 1);
+        
+        
+        
+        System.out.println("que se selecciono"+fila);
+        System.out.println("esto es fila columna"+ codigo );
+        Inscripcion aluins(new Object []{a.getIdIncripcion(),a.getNota(),a.getAlumno(),a.getMateria() });
+        int id;
+        if(fila != -1){
+            id = (int) tblMaterias.getValueAt(fila, 2);
+            System.out.println("id =" + id);
+            //matS.eliminarMateria(id);
+            //modelo.removeRow(fila);
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno.");
+        }*/
+    }//GEN-LAST:event_jBincribcionActionPerformed
     
     private void cargarBox(){
         alumS.listarAlumnos(alumnos);
@@ -289,7 +319,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBincribcion;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<Alumno> jComboAlumnos;
     private javax.swing.JLabel jLabel1;

@@ -103,10 +103,27 @@ public class InscripcionData {
          
         return milista;
         
-        
-        
-    
-    
-    } 
-    
+    } ///tratando de ahcer el agregado de la inscripcion 
+    public void añadirIncriptoaMateria(Inscripcion inscrip){
+        String sql= "INSERT INTO `inscripcion`(`idInscripto`, `nota`, `idAlumno`, `idMateria`) VALUES (?,?,?,?)";
+        /*try {
+            PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, inscrip.getIdIncripcion());
+            ps.setDouble(2, inscrip.getNota());
+            ps.setInt(3, Integer.parseInt(inscrip.getAlumno()));
+            ps.setInt(4, inscrip.getMateria());
+            ps.executeUpdate();
+            
+            ResultSet rs = ps.getGeneratedKeys(); 
+            
+            if(rs.next()){
+                materia.setIdMateria(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Materia agregada.");
+            }
+            rs.close();
+            ps.close();
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: ." + ex.getMessage());
+        }*/
+    }
 }
