@@ -27,5 +27,10 @@ public class MateriaServices {
         data.eliminarMateria(id);
     }
     
+    public Materia buscarMateriaXId(int id){
+        Materia materia = data.buscarMateriaPorId(id);
+        return materia;
+    }
+    
     
 }

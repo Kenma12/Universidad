@@ -12,6 +12,7 @@ import entidades.InscripcionServices;
 import entidades.Materia;
 import entidades.MateriaServices;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -212,16 +213,21 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
 
     private void jRadioNoInscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioNoInscActionPerformed
         
-        jRadioInsc.setSelected(false);
-        //prueba si borra filas 
+       jRadioInsc.setSelected(false);
+       //prueba si borra filas 
        borrarfilas();
+       
        InscripcionData insc = new InscripcionData();
-       Alumno alum= (Alumno) jComboAlumnos.getSelectedItem();
-       insc.Materianocursada(alum.getIdAlumno());
-       for (Materia a:insc.Materianocursada(alum.getIdAlumno()) ){
-           modelo.addRow(new Object []{a.getIdMateria(),a.getNombre(),a.getAnioMateria(),a.isActivo() });
+       
+       Alumno alum = (Alumno) jComboAlumnos.getSelectedItem();
+       
+       String activo;
+       
+       for (Materia a:insc.materiaNoCursada(alum.getIdAlumno())){
+           activo = (a.isActivo()) ? "si" : "no";
+           modelo.addRow(new Object []{a.getIdMateria(),a.getNombre(),a.getAnioMateria(),activo });
        }
-           tblMaterias.setModel(modelo);
+        tblMaterias.setModel(modelo);
        
         
         
@@ -247,34 +253,34 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
        insc.listarInscriptosPorAlumno(alum.getIdAlumno());
        //int insalum = (Integer) alum.getIdAlumno();
 
+       String activo;
+       
        for (Inscripcion a:insc.listarInscriptosPorAlumno(alum.getIdAlumno())){
-           modelo.addRow(new Object []{a.getIdIncripcion(),a.getNota(),a.getAlumno(),a.getMateria() });
+           activo = (a.getMateria().isActivo()) ? "Si" : "No";
+           modelo.addRow(new Object []{a.getIdIncripcion(),a.getMateria().getNombre()
+                   ,a.getMateria().getAnioMateria(), activo });
        }
            tblMaterias.setModel(modelo);
         
     }//GEN-LAST:event_jRadioInscActionPerformed
 
     private void btnIncripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncripcionActionPerformed
-        // trabajando aca 13:30 
-       /* int insalum = (Integer) alum.getIdAlumno();
-        //necesito meter lo que tengo selecionado a un objeto 
-        int codidmateria = (Integer) tblMaterias.getValueAt(tblMaterias.getSelectedRow(), 0);
-        int codnota = (Integer) tblMaterias.getValueAt(tblMaterias.getSelectedRow(), 1);
-        
-        
-        
-        System.out.println("que se selecciono"+fila);
-        System.out.println("esto es fila columna"+ codigo );
-        Inscripcion aluins(new Object []{a.getIdIncripcion(),a.getNota(),a.getAlumno(),a.getMateria() });
-        int id;
-        if(fila != -1){
-            id = (int) tblMaterias.getValueAt(fila, 2);
-            System.out.println("id =" + id);
-            //matS.eliminarMateria(id);
-            //modelo.removeRow(fila);
+        if(tblMaterias.getSelectedRow() != -1){
+            int i = jComboAlumnos.getSelectedIndex();
+            Alumno alum = alumnos.get(i);
+            
+            int idMateria = (Integer) tblMaterias.getValueAt(tblMaterias.getSelectedRow(), 0);
+            Materia materia =  matS.buscarMateriaXId(idMateria);
+            
+            Inscripcion aluIns = new Inscripcion (0 ,alum,materia);
+
+            inscS.inscripcionAmateria(0, alum, materia);
+            
+            modelo.removeRow(tblMaterias.getSelectedRow());
+            
         }else{
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno.");
-        }*/
+           JOptionPane.showMessageDialog(null, "Debe seleccionar una materia.");
+        }
     }//GEN-LAST:event_btnIncripcionActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -287,14 +293,10 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
             jComboAlumnos.addItem(a);
         }
     }
-    
-    private void cargarTablaInsc(){
-        
-    }
-    
+ 
     private void cargarTabla(){
-//           inscS.listarInscripciones(materiasNoInc);
-          matS.listarMaterias(materiasNoInc);
+//      inscS.listarInscripciones(materiasNoInc);
+        matS.listarMaterias(materiasNoInc);
            
         for(Materia a:materiasNoInc){
             modelo.addRow(new Object[]{

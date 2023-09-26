@@ -45,7 +45,7 @@ public class Inscripcion {
         this.idIncripcion = idIncripcion;
     }
 
-    public double getNota() {
+    public int getNota() {
         return nota;
     }
 

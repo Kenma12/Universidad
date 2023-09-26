@@ -17,6 +17,7 @@ import static java.util.Collections.list;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.mariadb.jdbc.Statement;
 /**
  *
  * @author Enzo-PC
@@ -79,51 +80,48 @@ public class InscripcionData {
         return cursadas;
         
     }
-    public ArrayList <Materia> Materianocursada (int idMateria){
-        ArrayList<Materia>milista=new ArrayList<>();
-        String sql = "Select * from materia where idMateria not in (select idMateria from inscripcion where idAlumno =?) AND materia.estado=1";
+    public ArrayList<Materia> materiaNoCursada(int idAlumno){
+       ArrayList<Materia>miLista=new ArrayList<>();
+       String sql = "Select * from materia where idMateria not in (select idMateria from inscripcion where idAlumno =?) AND materia.estado=1";
        PreparedStatement ps;
        
-       
-      try {
-           
+       try {
+            
           MateriaData materiadata = new MateriaData();
           ps = conexion.prepareStatement(sql);
-             ps.setInt(1, idMateria);
-            ResultSet rs = ps.executeQuery();
+          ps.setInt(1, idAlumno);
+          ResultSet rs = ps.executeQuery();
           while (rs.next()){
               Materia materia=materiadata.buscarMateriaPorId(rs.getInt(1));
-              milista.add(materia);
-              
+              miLista.add(materia);    
           }
         } catch (SQLException ex) {
-            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-            
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);  
         }
          
-        return milista;
+        return miLista;
         
     } ///tratando de ahcer el agregado de la inscripcion 
-    public void añadirIncriptoaMateria(Inscripcion inscrip){
-        String sql= "INSERT INTO `inscripcion`(`idInscripto`, `nota`, `idAlumno`, `idMateria`) VALUES (?,?,?,?)";
-        /*try {
+    public void añadirIncriptoAMateria(Inscripcion inscrip){
+        String sql= "INSERT INTO `inscripcion`(`nota`, `idAlumno`, `idMateria`)"
+                + " VALUES (?,?,?)";
+        try {
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, inscrip.getIdIncripcion());
-            ps.setDouble(2, inscrip.getNota());
-            ps.setInt(3, Integer.parseInt(inscrip.getAlumno()));
-            ps.setInt(4, inscrip.getMateria());
+            ps.setInt(1, inscrip.getNota());
+            ps.setInt(2, inscrip.getAlumno().getIdAlumno());
+            ps.setInt(3, inscrip.getMateria().getIdMateria());
+            
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys(); 
-            
             if(rs.next()){
-                materia.setIdMateria(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Materia agregada.");
+                inscrip.setIdIncripcion(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Alumno inscripto.");
             }
             rs.close();
             ps.close();
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: ." + ex.getMessage());
-        }*/
+        }
     }
 }

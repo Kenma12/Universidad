@@ -22,7 +22,8 @@ public class InscripcionServices {
     public void listarInscripcionesXAlum(ArrayList<Inscripcion> inscriptos){
         inscriptos.addAll(data.listarInscriptosPorAlumno(0));
     }
-    public void inscripcionAmateria(){
-        
+    public void inscripcionAmateria(int nota, Alumno alumno, Materia materia){
+        Inscripcion inc = new Inscripcion(nota, alumno, materia); 
+        data.añadirIncriptoAMateria(inc);
     }
 }
