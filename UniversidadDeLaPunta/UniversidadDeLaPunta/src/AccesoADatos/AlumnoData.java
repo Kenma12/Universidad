@@ -149,7 +149,6 @@ public class AlumnoData {
                 JOptionPane.showMessageDialog(null, "No puede eliminar un alumno inscripto a una materia o más.");  
             }else{
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-            System.out.println(ex.getMessage());
             }
         } 
     }
