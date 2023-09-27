@@ -166,17 +166,20 @@ public class InscripcionData {
                 + "   FROM inscripcion i "
                 + "   JOIN alumno a ON i.idAlumno = a.idAlumno"
                 + "   WHERE i.idMateria = ?";
-        Alumno alum = new Alumno();
+        Alumno alum = null;
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idMateria);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                System.out.println("num");
+                alum = new Alumno();
                 alum.setIdAlumno(rs.getInt("idAlumno"));
                 alum.setDni(rs.getInt("dni"));
                 alum.setApellido(rs.getString("apellido"));
                 alum.setNombre(rs.getString("nombre"));
+                
+                System.out.println(alum.toString());
+                
                 alumnos.put(alum, alum.getIdAlumno());
             }
             

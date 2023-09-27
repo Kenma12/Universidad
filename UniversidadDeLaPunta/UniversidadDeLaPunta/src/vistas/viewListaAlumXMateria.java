@@ -162,18 +162,16 @@ public class viewListaAlumXMateria extends javax.swing.JInternalFrame {
         int i = jComboMaterias.getSelectedIndex();
         int idMateria = materias.get(i).getIdMateria();
         alumnos.putAll(incD.inscriptcionesAlumnoAMateria(idMateria));
-                
         for (Map.Entry<Alumno, Integer> entry : alumnos.entrySet()) {
             modelo.addRow(new Object[]{entry.getKey().getIdAlumno(), entry.getKey().getDni(), entry.getKey().getApellido(), entry.getKey().getNombre()});
         }
     }
+    
     private void cargarBox(ArrayList<Materia> materias){
         for (Materia m:materias){
             jComboMaterias.addItem(m.toString());
         }
     }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
