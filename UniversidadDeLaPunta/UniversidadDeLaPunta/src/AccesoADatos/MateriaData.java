@@ -84,9 +84,12 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null, "Materia eliminada.");
             }
         }catch (SQLException ex) {
-            System.out.println("boluido");
-            System.out.println(id);
+            if(ex.getErrorCode() == 1451){
+                JOptionPane.showMessageDialog(null, "No puede eliminar una materia con un alumno inscripto o más.");  
+                return;
+            }else{
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            }
         }
     }
 

@@ -4,6 +4,7 @@
  */
 package vistas;
 
+import AccesoADatos.AlumnoData;
 import entidades.Alumno;
 import entidades.AlumnoServices;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
             }
     };
     private AlumnoServices aS = new AlumnoServices();
+    private AlumnoData alumData = new AlumnoData();
 
     
     /**

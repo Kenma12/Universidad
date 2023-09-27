@@ -145,13 +145,13 @@ public class AlumnoData {
                 JOptionPane.showMessageDialog(null, "Alumno eliminado.");
             }
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-        }
-        
-        
-        
-        
-        
+            if(ex.getErrorCode() == 1451){
+                JOptionPane.showMessageDialog(null, "No puede eliminar un alumno inscripto a una materia o más.");  
+            }else{
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
+            }
+        } 
     }
     
 }
