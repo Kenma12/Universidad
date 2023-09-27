@@ -15,7 +15,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Enzo-PC
  */
 public class viewListaAlumno extends javax.swing.JInternalFrame {
-    private DefaultTableModel modeloTabla = new DefaultTableModel();
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Hace que todas las celdas no sean editables
+            }
+    };
     private AlumnoServices aS = new AlumnoServices();
 
     

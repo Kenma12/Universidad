@@ -21,7 +21,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class viewIncripcion extends javax.swing.JInternalFrame {
     private AlumnoServices alumS = new AlumnoServices();
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Hace que todas las celdas no sean editables
+            }
+    };
     ArrayList<Alumno> alumnos= new ArrayList();
     private InscripcionServices inscS = new InscripcionServices();
     private MateriaServices matS = new MateriaServices();
@@ -57,7 +62,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMaterias = new javax.swing.JTable();
         btnIncripcion = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBorrarInsc = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -100,7 +105,15 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblMaterias);
 
         btnIncripcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -111,11 +124,11 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton2.setText("Anular Inscripcion");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrarInsc.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnBorrarInsc.setText("Anular Inscripcion");
+        btnBorrarInsc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnBorrarInscActionPerformed(evt);
             }
         });
 
@@ -138,7 +151,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnIncripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBorrarInsc, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
@@ -192,7 +205,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBorrarInsc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIncripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66))
         );
@@ -212,8 +225,9 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioNoInscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioNoInscActionPerformed
-        
        jRadioInsc.setSelected(false);
+       btnIncripcion.setEnabled(true);
+       btnBorrarInsc.setEnabled(false);
        //prueba si borra filas 
        borrarfilas();
        
@@ -245,10 +259,12 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
 
     private void jRadioInscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioInscActionPerformed
         jRadioNoInsc.setSelected(false);
+        btnIncripcion.setEnabled(false);
+        btnBorrarInsc.setEnabled(true);
         //prueba si borra las filas 
         borrarfilas();
         //estoy trabajando aca hay que corregir la impresion de los datos en la tabla y combo 
-        InscripcionData insc = new InscripcionData();
+       InscripcionData insc = new InscripcionData();
        Alumno alum= (Alumno) jComboAlumnos.getSelectedItem();
        insc.listarInscriptosPorAlumno(alum.getIdAlumno());
        //int insalum = (Integer) alum.getIdAlumno();
@@ -257,7 +273,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
        
        for (Inscripcion a:insc.listarInscriptosPorAlumno(alum.getIdAlumno())){
            activo = (a.getMateria().isActivo()) ? "Si" : "No";
-           modelo.addRow(new Object []{a.getIdIncripcion(),a.getMateria().getNombre()
+           modelo.addRow(new Object []{a.getMateria().getIdMateria(),a.getMateria().getNombre()
                    ,a.getMateria().getAnioMateria(), activo });
        }
            tblMaterias.setModel(modelo);
@@ -268,24 +284,25 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
         if(tblMaterias.getSelectedRow() != -1){
             int i = jComboAlumnos.getSelectedIndex();
             Alumno alum = alumnos.get(i);
-            
             int idMateria = (Integer) tblMaterias.getValueAt(tblMaterias.getSelectedRow(), 0);
             Materia materia =  matS.buscarMateriaXId(idMateria);
-            
             Inscripcion aluIns = new Inscripcion (0 ,alum,materia);
-
             inscS.inscripcionAmateria(0, alum, materia);
-            
             modelo.removeRow(tblMaterias.getSelectedRow());
-            
         }else{
            JOptionPane.showMessageDialog(null, "Debe seleccionar una materia.");
         }
     }//GEN-LAST:event_btnIncripcionActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnBorrarInscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarInscActionPerformed
+        if(tblMaterias.getSelectedRow() != -1){
+            int i = jComboAlumnos.getSelectedIndex();
+            Alumno alum = alumnos.get(i);
+            int idMateria = (Integer) tblMaterias.getValueAt(tblMaterias.getSelectedRow(), 0);
+            inscS.borrarInsc(alum.getIdAlumno(), idMateria);
+            modelo.removeRow(tblMaterias.getSelectedRow());
+        }
+    }//GEN-LAST:event_btnBorrarInscActionPerformed
     
     private void cargarBox(){
         alumS.listarAlumnos(alumnos);
@@ -295,7 +312,6 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     }
  
     private void cargarTabla(){
-//      inscS.listarInscripciones(materiasNoInc);
         matS.listarMaterias(materiasNoInc);
            
         for(Materia a:materiasNoInc){
@@ -303,7 +319,7 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
              a.getIdMateria(),a.getNombre(),a.getAnioMateria(),a.isActivo()}) ;  
             }
         tblMaterias.setModel(modelo);
-        }
+    }
     
      
     private void borrarfilas(){
@@ -312,14 +328,6 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
            modelo.removeRow(f);
         };
     }
-    
-    
-        
-    
-    
-    
-    
-    
     
     private void armarTabla(){
         modelo.addColumn("Id");
@@ -331,9 +339,9 @@ public class viewIncripcion extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrarInsc;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnIncripcion;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<Alumno> jComboAlumnos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

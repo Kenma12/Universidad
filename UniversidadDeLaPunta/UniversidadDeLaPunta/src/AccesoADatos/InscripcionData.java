@@ -124,4 +124,38 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error: ." + ex.getMessage());
         }
     }
+    
+    public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria){
+        String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ps.setInt(2, idMateria);
+            
+            int filas = ps.executeUpdate();
+            if(filas>0){
+                JOptionPane.showMessageDialog(null, "Inscripcion borrada.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }
+    
+    public void actualizarNota(int idAlumno, int nota){
+        String sql = "UPDATE `inscripcion` SET `nota`= ? WHERE idAlumno = ?";
+        
+        try{
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, nota);
+            ps.setInt(2, idAlumno);
+            int fila = ps.executeUpdate();
+            if(fila>0){
+               JOptionPane.showMessageDialog(null, "Notas actualizadas.");
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());            
+        }
+    }
 }

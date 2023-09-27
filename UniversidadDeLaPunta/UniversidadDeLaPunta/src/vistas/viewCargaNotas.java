@@ -4,18 +4,41 @@
  */
 package vistas;
 
+import AccesoADatos.InscripcionData;
+import entidades.Alumno;
+import entidades.AlumnoServices;
+import entidades.Inscripcion;
+import entidades.InscripcionServices;
+import entidades.Materia;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Enzo-PC
  */
 public class viewCargaNotas extends javax.swing.JInternalFrame {
-
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+            public boolean isCellEditable(int fila, int columna) {
+                if (columna ==3 ){return true;}
+                return false; // Hace que todas las celdas no sean editables
+            }
+    };
+    InscripcionServices insS = new InscripcionServices();
+    ArrayList<Inscripcion> inscriptos = new ArrayList();
+    AlumnoServices alumS = new AlumnoServices();
+    ArrayList<Alumno> alumnos = new ArrayList();
+    InscripcionData data = new InscripcionData();
     /**
      * Creates new form viewCargaNotas
      */
     public viewCargaNotas() {
         initComponents();
-        setSize(1190, 640);
+        cargarBox();
+        armarTbl();
+        cargarTabla();
     }
 
     /**
@@ -29,24 +52,28 @@ public class viewCargaNotas extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboAlumnos = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAlumnos = new javax.swing.JTable();
         btnRegreso = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 153, 0));
         jLabel1.setText("Carga de notas");
 
-        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboAlumnos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jComboAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboAlumnosActionPerformed(evt);
+            }
+        });
 
-        jTable1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAlumnos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tblAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,7 +84,7 @@ public class viewCargaNotas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblAlumnos);
 
         btnRegreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo cerrar.png"))); // NOI18N
         btnRegreso.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +106,7 @@ public class viewCargaNotas extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(41, 41, 41)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(268, 268, 268))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +133,7 @@ public class viewCargaNotas extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,8 +142,13 @@ public class viewCargaNotas extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jButton1.setText("GUARDAR");
+        btnGuardar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,7 +157,7 @@ public class viewCargaNotas extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(481, 481, 481)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,7 +165,7 @@ public class viewCargaNotas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -141,20 +173,81 @@ public class viewCargaNotas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresoActionPerformed
-        setVisible(false);
+        dispose();
     }//GEN-LAST:event_btnRegresoActionPerformed
 
+    private void jComboAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboAlumnosActionPerformed
+        cargarTabla();
+    }//GEN-LAST:event_jComboAlumnosActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+       
+        int fila = tblAlumnos.getSelectedRow();
+        if(fila != -1){
+            
+            Object celdaNota = tblAlumnos.getValueAt(fila, 3);
+      
+            try{
+                int nota = Integer.parseInt((String) celdaNota);  
+                int idAlumno = alumnos.get(jComboAlumnos.getSelectedIndex()).getIdAlumno();
+                if (nota > 0 && nota < 11){
+                    data.actualizarNota(idAlumno, nota);
+                }else{
+                    JOptionPane.showMessageDialog(null, "La nota solo es del 1 al 10");       
+                    return;
+             }
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Solo se permiten numeros");  
+            }
+        }
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    
+    private void cargarTabla(){
+        modelo.setRowCount(0);
+        int i = jComboAlumnos.getSelectedIndex();
+        Alumno alum = alumnos.get(i);
+        
+        String nota;
+      
+       for (Inscripcion a:data.listarInscriptosPorAlumno(alum.getIdAlumno())){
+           nota = (a.getNota() == 0) ? "Sin nota" : String.valueOf(a.getNota());
+           modelo.addRow(new Object []{a.getMateria().getIdMateria(),a.getMateria().getNombre()
+                   ,a.getMateria().getAnioMateria(), nota });
+       }
+          tblAlumnos.setModel(modelo);
+          
+    }
+    
+    private void armarTbl(){
+        modelo.addColumn("Id");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Año");
+        modelo.addColumn("nota");
+        
+    }
+    
+    private void cargarBox(){
+       alumS.listarAlumnos(alumnos);
+       for(Alumno a:alumnos){
+           jComboAlumnos.addItem(a.toString());
+       }
+    }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegreso;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboAlumnos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblAlumnos;
     // End of variables declaration//GEN-END:variables
 }
