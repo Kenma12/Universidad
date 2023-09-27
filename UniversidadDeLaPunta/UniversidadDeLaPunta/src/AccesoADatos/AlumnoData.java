@@ -79,9 +79,6 @@ public class AlumnoData {
         return alumno;
     }
     
-    
-    //NO FUNCIONA
-    
     public Alumno buscarAlumnoPorDni(int dni){
         String sql = "SELECT `idAlumno`, `dni`, `apellido`, `nombre`, `fechadNacimiento`, `estado`"
                 + " FROM `alumno` WHERE dni = ?" ;
@@ -128,11 +125,6 @@ public class AlumnoData {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         } 
         return alumnos;
-    }
-    
-    public void modificarAlumno(Alumno alumno){
-    
-        
     }
     
     public void eliminarAlumno(int id){

@@ -35,8 +35,6 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
         cargarAlumnosLista();
         
     }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -173,10 +171,6 @@ public class viewListaAlumno extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Habilitado");
         tblAlumnos.setModel(modeloTabla);
     }
-    
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;

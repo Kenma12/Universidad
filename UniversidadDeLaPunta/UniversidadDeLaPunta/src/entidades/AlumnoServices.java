@@ -26,8 +26,6 @@ public class AlumnoServices {
         alumnos.addAll(data.listarAlumnos());
     }
     
-    //No funciona
-    
     public Alumno buscarAlumno(int dni){
         Alumno alum = data.buscarAlumnoPorDni(dni);
         return alum;
