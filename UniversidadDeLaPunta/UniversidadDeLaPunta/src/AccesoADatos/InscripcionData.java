@@ -177,12 +177,9 @@ public class InscripcionData {
                 alum.setDni(rs.getInt("dni"));
                 alum.setApellido(rs.getString("apellido"));
                 alum.setNombre(rs.getString("nombre"));
-                
                 System.out.println(alum.toString());
-                
                 alumnos.put(alum, alum.getIdAlumno());
             }
-            
             rs.close();
             ps.close();
         } catch (SQLException ex) {

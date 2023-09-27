@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Enzo-PC
@@ -191,27 +193,43 @@ public class viewMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
  
     private void jMenubuscarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenubuscarAlumnosActionPerformed
-        viewBuscarXDni vBuscarAlum = new viewBuscarXDni();
-        escritorio.add(vBuscarAlum);
-        vBuscarAlum.setVisible(true);
+       try{
+            viewBuscarXDni vBuscarAlum = new viewBuscarXDni();
+            escritorio.add(vBuscarAlum);
+            vBuscarAlum.setVisible(true);
+       }catch(IndexOutOfBoundsException e){
+           JOptionPane.showMessageDialog(null, "Necesita tener datos");
+       }
     }//GEN-LAST:event_jMenubuscarAlumnosActionPerformed
 
     private void jMenuInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuInscripcionesActionPerformed
-        viewIncripcion vI = new viewIncripcion();
-        escritorio.add(vI);
-        vI.setVisible(true);
+        try{
+            viewIncripcion vI = new viewIncripcion();
+            escritorio.add(vI);
+            vI.setVisible(true);
+        }catch(IndexOutOfBoundsException e){
+           JOptionPane.showMessageDialog(null, "Necesita tener datos");
+        }
     }//GEN-LAST:event_jMenuInscripcionesActionPerformed
 
     private void jMenuManipulacionNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuManipulacionNotasActionPerformed
-        viewCargaNotas vCN = new viewCargaNotas();
-        escritorio.add(vCN);
-        vCN.setVisible(true);
+        try{
+            viewCargaNotas vCN = new viewCargaNotas();
+            escritorio.add(vCN);
+            vCN.setVisible(true);
+        }catch(IndexOutOfBoundsException e){
+           JOptionPane.showMessageDialog(null, "Necesita tener datos");
+        }
     }//GEN-LAST:event_jMenuManipulacionNotasActionPerformed
 
     private void jMenuAlumnosPorMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAlumnosPorMateriaActionPerformed
-        viewListaAlumXMateria vLAXM = new viewListaAlumXMateria();
-        escritorio.add(vLAXM);
-        vLAXM.setVisible(true);
+        try{
+            viewListaAlumXMateria vLAXM = new viewListaAlumXMateria();
+            escritorio.add(vLAXM);
+            vLAXM.setVisible(true);
+        }catch(IndexOutOfBoundsException e){
+           JOptionPane.showMessageDialog(null, "Necesita tener datos");
+        }
     }//GEN-LAST:event_jMenuAlumnosPorMateriaActionPerformed
 
     private void jItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemSalirActionPerformed
