@@ -13,7 +13,8 @@ import org.mariadb.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static java.util.Collections.list;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -157,5 +158,37 @@ public class InscripcionData {
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());            
         }
+    }
+    
+    public HashMap<Alumno, Integer> inscriptcionesAlumnoAMateria(int idMateria){
+        HashMap<Alumno, Integer> alumnos = new HashMap<>();
+        String sql = "SELECT a.idAlumno, a.dni, a.apellido, a.nombre "
+                + "   FROM inscripcion i "
+                + "   JOIN alumno a ON i.idAlumno = a.idAlumno"
+                + "   WHERE i.idMateria = ?";
+        Alumno alum = new Alumno();
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idMateria);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                System.out.println("num");
+                alum.setIdAlumno(rs.getInt("idAlumno"));
+                alum.setDni(rs.getInt("dni"));
+                alum.setApellido(rs.getString("apellido"));
+                alum.setNombre(rs.getString("nombre"));
+                alumnos.put(alum, alum.getIdAlumno());
+            }
+            
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            
+        }
+        
+        return alumnos;
+        
+                
     }
 }
